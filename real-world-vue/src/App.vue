@@ -8,8 +8,8 @@ import { RouterLink, RouterView } from 'vue-router'
     <nav>
       <RouterLink class="space" :to="{ name: 'event-list'}">Home</RouterLink>
       <RouterLink class="space" :to="{ name: 'about'}">About</RouterLink>
-      <RouterLink class="space" :to="{ name: 'EventList2'}">Home2</RouterLink>
-      <RouterLink class="space" :to="{ name: 'StudentList'}">Student</RouterLink>
+      <RouterLink class="space" :to="{ name: 'event-list2'}">Home2</RouterLink>
+      <RouterLink class="space" :to="{ name: 'student-list'}">Student</RouterLink>
       <!-- <RouterLink class="space" to="/">Home</RouterLink> -->
       <!-- <RouterLink class="space" to="/about">About</RouterLink> -->
       <!-- <RouterLink class="space" to="/event2">Home2</RouterLink> -->
