@@ -2,7 +2,7 @@
 import EventCard from '../components/EventCard.vue'
 import EventCard2 from '../components/EventCard2.vue'
 import type { EventItem } from '@/type'
-import { computed, ref, type Ref , watchEffect} from 'vue'
+import { computed, ref, type Ref, watchEffect } from 'vue'
 // import axios from 'axios'
 import EventService from '@/services/EventService'
 import type { AxiosResponse } from 'axios'
@@ -22,12 +22,12 @@ const props = defineProps({
   }
 })
 
-EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>) =>{
+EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>) => {
   events.value = response.data
 })
 
 watchEffect(() => {
-  EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>) =>{
+  EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>) => {
     events.value = response.data
     totalEvent.value = response.headers['x-total-count']
   })
@@ -43,12 +43,22 @@ const hasNextPage = computed(() => {
   <h1>Events For Good</h1>
   <main class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event"></EventCard>
-    <RouterLink :to="{name: 'EventList', query: {page: page - 1}}" rel="prev" v-if="page!= 1">
-      Prev Page
-    </RouterLink>
-    <RouterLink :to="{name: 'EventList', query: {page: page + 1}}" rel="next" v-if="hasNextPage">
-      Next Page
-    </RouterLink>
+    <div class="pagination">
+      <RouterLink
+        :to="{ name: 'EventList', query: { page: page - 1 } }"
+        rel="prev"
+        v-if="page != 1"
+      >
+        Prev Page
+      </RouterLink>
+      <RouterLink
+        :to="{ name: 'EventList', query: { page: page + 1 } }"
+        rel="next"
+        v-if="hasNextPage"
+      >
+        Next Page
+      </RouterLink>
+    </div>
   </main>
   <!-- <mian class="events2">
     <EventCard2 v-for="event in events" :key="event.id" :event="event"></EventCard2>
@@ -65,6 +75,25 @@ const hasNextPage = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: right;
+}
+
+.pagination {
+  display: flex;
+  width: 290px;
+}
+
+.pagination a {
+  flex: 1;
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+#page-prev {
+  text-align: left;
+}
+
+#page-next {
   text-align: right;
 }
 </style>
