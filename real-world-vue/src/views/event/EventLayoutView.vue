@@ -2,17 +2,21 @@
 import { ref } from 'vue'
 import type { EventItem } from '@/type'
 import EventService from '@/services/EventService';
+import { useRouter } from 'vue-router';
 
 
 const event = ref<EventItem | null> (null)
 const props = defineProps({
     id: String
 })
-    EventService.getEventById(Number(props.id)).then((response) => {
+const router = useRouter()
+
+EventService.getEventById(Number(props.id)).then((response) => {
     event.value = response.data
-    }).catch(error => {
-        console.log(error)
-    })
+}).catch(error => {
+    console.log(error)
+    router.push({ name: '404-resource', params: { resource: 'event'} })
+})
 
 </script>
 <template>
