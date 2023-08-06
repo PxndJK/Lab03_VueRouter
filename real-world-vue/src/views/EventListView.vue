@@ -5,6 +5,7 @@ import type { EventItem } from '@/type'
 import { ref, type Ref } from 'vue'
 // import axios from 'axios'
 import EventService from '@/services/EventService'
+import type { AxiosResponse } from 'axios'
 
 const events: Ref<Array<EventItem>> = ref([])
 
@@ -12,7 +13,13 @@ const events: Ref<Array<EventItem>> = ref([])
 // .then((response) => {
 //   events.value = response.data
 // })
-EventService.getEvent().then((response: { data: EventItem[] }) =>{
+const props = defineProps({
+  page: {
+    type: Number,
+    required: true
+  }
+})
+EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>) =>{
   events.value = response.data
 })
 </script>
