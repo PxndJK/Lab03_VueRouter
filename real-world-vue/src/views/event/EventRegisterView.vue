@@ -10,5 +10,5 @@ defineProps({
 })
 </script>
 <template>
-       <p> Registration from here</p>
+       <p>Registration from here</p>
 </template>

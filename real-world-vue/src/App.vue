@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <header>
-    <nav>
-      <RouterLink class="space" :to="{ name: 'event-list'}">Home</RouterLink>
-      <RouterLink class="space" :to="{ name: 'about'}">About</RouterLink>
-      <RouterLink class="space" :to="{ name: 'event-list2'}">Home2</RouterLink>
-      <RouterLink class="space" :to="{ name: 'student-list'}">Student</RouterLink>
-      <!-- <RouterLink class="space" to="/">Home</RouterLink> -->
-      <!-- <RouterLink class="space" to="/about">About</RouterLink> -->
-      <!-- <RouterLink class="space" to="/event2">Home2</RouterLink> -->
-      <!-- <RouterLink class="space" to="/Student">Student</RouterLink> -->
-    </nav>
+      <nav>
+        <RouterLink :to="{ name: 'event-list'}"> Home </RouterLink>
+        <RouterLink :to="{ name: 'event-list2'}"> Home2 </RouterLink>
+        <RouterLink :to="{ name: 'student-list'}"> Student </RouterLink>
+        <RouterLink :to="{ name: 'about'}"> About </RouterLink>
+      </nav>
   </header>
 
   <RouterView />
@@ -54,9 +50,5 @@ header {
 
 h4 {
   font-size: 20px;
-}
-
-.space{
-  margin-right: 15px;
 }
 </style>
