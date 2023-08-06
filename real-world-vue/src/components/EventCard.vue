@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="{name: 'event-detail'}">
+  <RouterLink :to="{name: 'event-detail', params:{id: event?.id}}">
     <div class="event-class">
     <div class="event-card">
       <span>@{{ event?.time }} on {{ event?.date }}</span>
