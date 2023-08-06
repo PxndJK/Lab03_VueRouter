@@ -6,7 +6,7 @@
       <h4>{{ event?.title }}</h4>
     </div>
   </div>
-  </RouterLink>
+  </RouterLink> 
 </template>
 
 <script setup lang="ts">
