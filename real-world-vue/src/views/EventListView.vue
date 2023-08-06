@@ -2,11 +2,11 @@
 import EventCard from '../components/EventCard.vue'
 import EventCard2 from '../components/EventCard2.vue'
 import type { EventItem } from '@/type'
-import { ref, type Ref } from 'vue'
+import { computed, ref, type Ref , watchEffect} from 'vue'
 // import axios from 'axios'
 import EventService from '@/services/EventService'
 import type { AxiosResponse } from 'axios'
-import { watchEffect } from 'vue'
+// import { watchEffect } from 'vue'
 
 const events: Ref<Array<EventItem>> = ref([])
 
@@ -14,6 +14,7 @@ const events: Ref<Array<EventItem>> = ref([])
 // .then((response) => {
 //   events.value = response.data
 // })
+const totalEvent = ref<number>(0)
 const props = defineProps({
   page: {
     type: Number,
@@ -28,7 +29,13 @@ EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>)
 watchEffect(() => {
   EventService.getEvent(2, props.page).then((response: AxiosResponse<EventItem[]>) =>{
     events.value = response.data
+    totalEvent.value = response.headers['x-total-count']
   })
+})
+
+const hasNextPage = computed(() => {
+  const totalPages = Math.ceil(totalEvent.value / 2)
+  return props.page.valueOf() < totalPages
 })
 </script>
 
@@ -39,7 +46,7 @@ watchEffect(() => {
     <RouterLink :to="{name: 'EventList', query: {page: page - 1}}" rel="prev" v-if="page!= 1">
       Prev Page
     </RouterLink>
-    <RouterLink :to="{name: 'EventList', query: {page: page + 1}}" rel="next" v-if="page + 1">
+    <RouterLink :to="{name: 'EventList', query: {page: page + 1}}" rel="next" v-if="hasNextPage">
       Next Page
     </RouterLink>
   </main>
